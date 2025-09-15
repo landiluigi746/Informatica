@@ -1,5 +1,6 @@
 #include "Utils.hpp"
 
+#include <cctype>
 #include <cstdlib>
 #include <ios>
 #include <iostream>
@@ -22,5 +23,16 @@ namespace Utils
     void ClearInputBuffer()
     {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+
+    bool StringContainsInsensitive(std::string a, std::string b)
+    {
+        for(char& c: a)
+            c = std::tolower(c);
+
+        for(char& c: b)
+            c = std::tolower(c);
+
+        return a.find(b) != std::string::npos;
     }
 }
