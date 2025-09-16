@@ -1,6 +1,7 @@
 #include "App.hpp"
 #include "Models.hpp"
 #include "Utils.hpp"
+#include <string>
 
 namespace Biblioteca
 {
@@ -56,10 +57,16 @@ namespace Biblioteca
                     ListBooks();
                     break;
                 case 3:
+                    (!m_CurrentUser) ? RegisterUser() : LogoutUser();
+                    break;
                 case 4:
-                    // TODO
-                    std::cout << "To be implemented!\n";
-                    Utils::Pause();
+                    if(!m_CurrentUser)
+                        LoginUser();
+                    else
+                    {
+                        std::cout << "Invalid choice!\n";
+                        Utils::Pause();
+                    }
                     break;
                 case 0:
                     std::cout << "Goodbye!\n";
@@ -75,6 +82,10 @@ namespace Biblioteca
     void App::RegisterBook()
     {
         Book newBook;
+
+        std::cout << "-------------------------------\n"
+                  << "|      Book registration      |\n"
+                  << "-------------------------------\n\n";
 
         std::cout << "Enter the title of the book: ";
         std::getline(std::cin, newBook.Title);
@@ -113,9 +124,9 @@ namespace Biblioteca
         do {
             Utils::ClearScreen();
 
-            std::cout << "-----------------------\n";
-            std::cout << "|      Catalogue      |\n";
-            std::cout << "-----------------------\n\n";
+            std::cout << "-----------------------\n"
+                      << "|      Catalogue      |\n"
+                      << "-----------------------\n\n";
 
             if(cmpFunc)
                 m_Books.Sort(cmpFunc);
@@ -150,9 +161,82 @@ namespace Biblioteca
         } while(choice != 0);
     }
 
+    void App::RegisterUser()
+    {
+        User newUser;
+        bool alreadyPresent;
+
+        std::cout << "-------------------------------\n"
+                  << "|      User registration      |\n"
+                  << "-------------------------------\n\n";
+
+        do {
+            std::cout << "Enter username (only letters and numbers): ";
+            std::getline(std::cin, newUser.Username);
+
+            alreadyPresent = m_Users.Search([](const User& a, const User& b) {
+                return a.Username == b.Username;
+            }, newUser);
+
+            if(alreadyPresent)
+                std::cout << "Username already present\n";
+        } while(!newUser.ValidateUsername() || alreadyPresent);
+
+        do {
+            std::cout << "Enter password (only letters, numbers and symbols (*, _, -)): ";
+            std::getline(std::cin, newUser.Password);
+        } while(!newUser.ValidatePassword());
+
+        m_Users.PushFront(std::move(newUser));
+        m_CurrentUser = &m_Users.Front();
+
+        std::cout << "Registered and logged in successfully!\n";
+        Utils::Pause();
+    }
+
+    void App::LoginUser()
+    {
+        User user;
+
+        std::cout << "------------------------\n"
+                  << "|      User login      |\n"
+                  << "------------------------\n\n";
+
+        do {
+            std::cout << "Enter username: ";
+            std::getline(std::cin, user.Username);
+        } while(user.Username.empty());
+
+        do {
+            std::cout << "Enter password: ";
+            std::getline(std::cin, user.Password);
+        } while(user.Password.empty());
+
+        User* savedUser = m_Users.Search([](const User& a, const User& b) {
+            return (a.Username == b.Username && a.Password == b.Password);
+        }, user);
+
+        if(savedUser)
+        {
+            std::cout << "Logged in successfully as " << user.Username << "\n";
+            m_CurrentUser = savedUser;
+        }
+        else
+            std::cout << "Wrong credentials\n";
+
+        Utils::Pause();
+    }
+
+    void App::LogoutUser()
+    {
+        m_CurrentUser = nullptr;
+    }
+
     void App::PrintBooks(const BooksFilterFunc& func)
     {
-        m_Books.ForEach([&func](const Book& book) {
+        size_t count = 0;
+
+        m_Books.ForEach([&func, &count](const Book& book) {
             if(!func(book))
                 return;
 
@@ -160,7 +244,12 @@ namespace Biblioteca
                       << "Title: " << book.Title << "\n"
                       << "Author: " << book.Author << "\n"
                       << "Publication Year: " << book.PublicationYear << "\n\n";
+
+            ++count;
         });
+
+        if(count == 0)
+            std::cout << "No books were found with the current filter\n\n";
     }
 
     BooksFilterFunc App::SearchBooks()
