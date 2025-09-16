@@ -14,6 +14,7 @@ namespace Biblioteca
         void RegisterBook();
         void ListBooks();
         void BorrowBook();
+        void ReturnBook();
 
         void RegisterUser();
         void LoginUser();

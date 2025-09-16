@@ -157,7 +157,8 @@ namespace Biblioteca
             if(m_CurrentUser)
             {
                 std::cout << "6. Borrow a book\n"
-                          << "7. See borrowed books\n";
+                          << "7. See borrowed books\n"
+                          << "8. Return a book\n";
             }
 
             std::cout << "0. Go back to menu\n\n";
@@ -199,8 +200,28 @@ namespace Biblioteca
                     }
                     break;
                 case 7:
-                    std::cout << "To be implemented!\n";
-                    Utils::Pause();
+                    if(m_CurrentUser)
+                    {
+                        filterFunc = [this](const Book& book) {
+                            return book.BorrowerID == m_CurrentUser->ID;
+                        };
+                    }
+                    else
+                    {
+                        Utils::ClearScreen();
+                        std::cout << "Invalid choice!\n";
+                        Utils::Pause();
+                    }
+                    break;
+                case 8:
+                    if(m_CurrentUser)
+                        ReturnBook();
+                    else
+                    {
+                        Utils::ClearScreen();
+                        std::cout << "Invalid choice!\n";
+                        Utils::Pause();
+                    }
                     break;
                 case 0:
                     break;
@@ -245,6 +266,41 @@ namespace Biblioteca
         std::cout << "Book " << selectedBook->Title
                   << " by " << selectedBook->Author
                   << " borrowed successfully\n";
+        Utils::Pause();
+    }
+
+    void App::ReturnBook()
+    {
+        Book bookToReturn;
+
+        do {
+            std::cout << "Enter the ID of the book to return: ";
+            std::cin >> bookToReturn.ID;
+        } while(bookToReturn.ID <= 0);
+
+        Book* selectedBook = m_Books.Search([](const Book& a, const Book& b) {
+            return a.ID == b.ID;
+        }, bookToReturn);
+
+        if(!selectedBook)
+        {
+            std::cout << "Requested book was not found\n";
+            Utils::Pause();
+            return;
+        }
+
+        if(selectedBook->BorrowerID != m_CurrentUser->ID)
+        {
+            std::cout << "You can't return this book, you haven't borrowed it\n";
+            Utils::Pause();
+            return;
+        }
+
+        selectedBook->BorrowerID = -1;
+
+        std::cout << "Book " << selectedBook->Title
+                  << " by " << selectedBook->Author
+                  << " returned successfully\n";
         Utils::Pause();
     }
 
