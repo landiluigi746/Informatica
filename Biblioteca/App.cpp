@@ -150,8 +150,17 @@ namespace Biblioteca
             std::cout << "Available options:\n"
                       << "1. Search for books\n"
                       << "2. Order books\n"
-                      << "3. Show unavailable books\n"
-                      << "0. Go back to menu\n\n";
+                      << "3. Show only available books\n"
+                      << "4. Show only borrowed books\n"
+                      << "5. Show all books\n";
+
+            if(m_CurrentUser)
+            {
+                std::cout << "6. Borrow a book\n"
+                          << "7. See borrowed books\n";
+            }
+
+            std::cout << "0. Go back to menu\n\n";
 
             std::cout << "Enter an option: ";
             std::cin >> choice;
@@ -167,12 +176,76 @@ namespace Biblioteca
                     filterFunc = [](const Book&){ return true; };
                     break;
                 case 3:
-                    // TODO
+                    filterFunc = [](const Book& book) {
+                        return book.BorrowerID < 0;
+                    };
+                    break;
+                case 4:
+                    filterFunc = [](const Book& book) {
+                        return book.BorrowerID > 0;
+                    };
+                    break;
+                case 5:
+                    filterFunc = [](const Book&){ return true; };
+                    break;
+                case 6:
+                    if(m_CurrentUser)
+                        BorrowBook();
+                    else
+                    {
+                        Utils::ClearScreen();
+                        std::cout << "Invalid choice!\n";
+                        Utils::Pause();
+                    }
+                    break;
+                case 7:
                     std::cout << "To be implemented!\n";
+                    Utils::Pause();
+                    break;
+                case 0:
+                    break;
+                default:
+                    Utils::ClearScreen();
+                    std::cout << "Invalid choice!\n";
                     Utils::Pause();
                     break;
             }
         } while(choice != 0);
+    }
+
+    void App::BorrowBook()
+    {
+        Book bookToBorrow;
+
+        do {
+            std::cout << "Enter the ID of the book to borrow: ";
+            std::cin >> bookToBorrow.ID;
+        } while(bookToBorrow.ID <= 0);
+
+        Book* selectedBook = m_Books.Search([](const Book& a, const Book& b) {
+            return a.ID == b.ID;
+        }, bookToBorrow);
+
+        if(!selectedBook)
+        {
+            std::cout << "Requested book was not found\n";
+            Utils::Pause();
+            return;
+        }
+
+        if(selectedBook->BorrowerID > 0)
+        {
+            std::cout << "You can't borrow this book, it is already borrowed\n";
+            Utils::Pause();
+            return;
+        }
+
+        selectedBook->BorrowerID = m_CurrentUser->ID;
+
+        std::cout << "Book " << selectedBook->Title
+                  << " by " << selectedBook->Author
+                  << " borrowed successfully\n";
+        Utils::Pause();
     }
 
     void App::RegisterUser()
@@ -201,6 +274,7 @@ namespace Biblioteca
             std::getline(std::cin, newUser.Password);
         } while(!newUser.ValidatePassword());
 
+        newUser.ID = m_Users.Size() + 1;
         m_Users.PushFront(std::move(newUser));
         m_CurrentUser = &m_Users.Front();
 
@@ -250,15 +324,31 @@ namespace Biblioteca
     {
         size_t count = 0;
 
-        m_Books.ForEach([&func, &count](const Book& book) {
+        m_Books.ForEach([&func, &count, this](const Book& book) {
             if(!func(book))
                 return;
 
             std::cout << "ID: " << book.ID << "\n"
                       << "Title: " << book.Title << "\n"
                       << "Author: " << book.Author << "\n"
-                      << "Publication Year: " << book.PublicationYear << "\n\n";
+                      << "Publication Year: " << book.PublicationYear << "\n";
 
+            if(book.BorrowerID > 0)
+            {
+                User* borrower = m_Users.Search([](const User& a, const User& b) {
+                    return a.ID == b.ID;
+                }, User{book.BorrowerID, "", ""});
+
+                if(!borrower)
+                {
+                    std::cout << "Borrower couldn't be found\n";
+                    return;
+                }
+
+                std::cout << "Borrowed by: " << borrower->Username << "\n";
+            }
+
+            std::cout << "\n";
             ++count;
         });
 

@@ -13,9 +13,12 @@ namespace Biblioteca
     private:
         void RegisterBook();
         void ListBooks();
+        void BorrowBook();
+
         void RegisterUser();
         void LoginUser();
         void LogoutUser();
+
         void PrintBooks(const BooksFilterFunc& func);
         BooksFilterFunc SearchBooks();
         BooksCmpFunc SortBooks();
