@@ -82,22 +82,36 @@ namespace Biblioteca
     void App::RegisterBook()
     {
         Book newBook;
+        bool alreadyPresent;
 
         std::cout << "-------------------------------\n"
                   << "|      Book registration      |\n"
                   << "-------------------------------\n\n";
 
-        std::cout << "Enter the title of the book: ";
-        std::getline(std::cin, newBook.Title);
+        do {
+            do {
+                std::cout << "Enter the title of the book: ";
+                std::getline(std::cin, newBook.Title);
+            } while(!newBook.ValidateTitle());
 
-        std::cout << "Enter the author of the book: ";
-        std::getline(std::cin, newBook.Author);
+            do {
+                std::cout << "Enter the author of the book: ";
+                std::getline(std::cin, newBook.Author);
+            } while(!newBook.ValidateAuthor());
+
+            alreadyPresent = m_Books.Search([](const Book& a, const Book& b) {
+                return a.Title == b.Title && a.Author == b.Author;
+            }, newBook);
+
+            if(alreadyPresent)
+                std::cout << "A book with the same title and author already exists\n";
+        } while(alreadyPresent);
 
         do {
             std::cout << "Enter the publication year of the book: ";
             std::cin >> newBook.PublicationYear;
             Utils::ClearInputBuffer();
-        } while(newBook.PublicationYear > 2025);
+        } while(!newBook.ValidatePublicationYear());
 
         newBook.ID = m_Books.Size() + 1;
         newBook.BorrowerID = -1;
@@ -118,7 +132,7 @@ namespace Biblioteca
         }
 
         int choice;
-        BooksFilterFunc filterFunc = [](const Book& book){ return true; };
+        BooksFilterFunc filterFunc = [](const Book&){ return true; };
         BooksCmpFunc cmpFunc;
 
         do {
@@ -300,7 +314,7 @@ namespace Biblioteca
             }
         } while(choice < 1 || choice > 3);
 
-        return [](const Book& book) { return true; };
+        return [](const Book&) { return true; };
     }
 
     BooksCmpFunc App::SortBooks()
