@@ -25,6 +25,9 @@ namespace Biblioteca
         int ID;
         std::string Username;
         std::string Password;
+
+        bool ValidateUsername() const noexcept;
+        bool ValidatePassword() const noexcept;
     };
 
     using Users = List<User>;
