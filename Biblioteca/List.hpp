@@ -47,6 +47,16 @@ public:
         return m_Size;
     }
 
+    T& Front() noexcept
+    {
+        return m_Head->Value;
+    }
+
+    const T& Front() const noexcept
+    {
+        return m_Head->Value;
+    }
+
     void PushFront(const T& value)
     {
         NodeType* newNode = new(std::nothrow) NodeType(value, m_Head);
@@ -109,6 +119,22 @@ public:
             func(curr->Value);
             curr = curr->Next;
         }
+    }
+
+    template<typename CmpFunc>
+    T* Search(const CmpFunc& cmpFunc, const T& value) const
+    {
+        NodeType* curr = m_Head;
+
+        while(curr != nullptr)
+        {
+            if(cmpFunc(curr->Value, value))
+                return &curr->Value;
+
+            curr = curr->Next;
+        }
+
+        return nullptr;
     }
 
     template<typename CmpFunc>
