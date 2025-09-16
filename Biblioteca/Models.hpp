@@ -14,6 +14,10 @@ namespace Biblioteca
         std::string Title;
         std::string Author;
         int PublicationYear;
+
+        bool ValidateTitle() const noexcept;
+        bool ValidateAuthor() const noexcept;
+        bool ValidatePublicationYear() const noexcept;
     };
 
     using Books = List<Book>;
