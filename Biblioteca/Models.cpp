@@ -1,6 +1,7 @@
 #include "Models.hpp"
+#include "Date.hpp"
+
 #include <cctype>
-#include <ctime>
 
 namespace Biblioteca
 {
@@ -16,9 +17,7 @@ namespace Biblioteca
 
     bool Book::ValidatePublicationYear() const noexcept
     {
-        std::time_t seconds = std::time(nullptr);
-        std::tm* calendarTime = std::localtime(&seconds);
-        return PublicationYear <= (calendarTime->tm_year + 1900);
+        return PublicationYear >= Book::MIN_PUBLICATION_YEAR && PublicationYear <= Date::Now().Year();
     }
 
     bool User::ValidateUsername() const noexcept
