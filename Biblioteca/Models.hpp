@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Date.hpp"
 #include "List.hpp"
 
 #include <functional>
@@ -14,6 +15,10 @@ namespace Biblioteca
         std::string Title;
         std::string Author;
         int PublicationYear;
+        Date LoanDate;
+        Date DueDate;
+
+        static constexpr int MIN_PUBLICATION_YEAR = 1900;
 
         bool ValidateTitle() const noexcept;
         bool ValidateAuthor() const noexcept;

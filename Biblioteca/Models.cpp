@@ -17,7 +17,7 @@ namespace Biblioteca
 
     bool Book::ValidatePublicationYear() const noexcept
     {
-        return PublicationYear >= Book::MIN_PUBLICATION_YEAR && PublicationYear <= Date::Now().Year();
+        return PublicationYear >= Book::MIN_PUBLICATION_YEAR && PublicationYear <= Date::CurrentDate().Year();
     }
 
     bool User::ValidateUsername() const noexcept

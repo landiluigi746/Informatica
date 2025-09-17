@@ -265,7 +265,33 @@ namespace Biblioteca
             return;
         }
 
+        int day, month, year;
+        bool validDate;
+        std::cout << "Enter the due date to return the book:\n";
+
+        do {
+            std::cout << "Day: ";
+            std::cin >> day;
+            Utils::ClearInputBuffer();
+
+            std::cout << "Month: ";
+            std::cin >> month;
+            Utils::ClearInputBuffer();
+
+            std::cout << "Year: ";
+            std::cin >> year;
+            Utils::ClearInputBuffer();
+
+            Date tempDate{day, month, year};
+            validDate = Date::IsValid(day, month, year) && tempDate > Date::CurrentDate();
+
+            if(!validDate)
+                std::cout << "Invalid date\n";
+        } while(!validDate);
+
         selectedBook->BorrowerID = m_CurrentUser->ID;
+        selectedBook->LoanDate = Date::CurrentDate();
+        selectedBook->DueDate = Date{day, month, year};
 
         std::cout << "Book " << selectedBook->Title
                   << " by " << selectedBook->Author
@@ -429,7 +455,15 @@ namespace Biblioteca
                     return;
                 }
 
-                std::cout << "Borrowed by: " << borrower->Username << "\n";
+                std::cout << "Borrowed by: " << (borrower->ID == m_CurrentUser->ID ? "You" : borrower->Username) << "\n";
+
+                if(borrower->ID == m_CurrentUser->ID)
+                {
+                    std::cout << "Loaned on: " << book.LoanDate.ToString() << "\n";
+                    std::cout << "Return due on: " << book.DueDate.ToString() << "\n";
+                    if(book.DueDate < Date::CurrentDate())
+                        std::cout << "You're late! You should return it!\n";
+                }
             }
 
             std::cout << "\n";

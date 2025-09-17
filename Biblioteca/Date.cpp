@@ -4,7 +4,7 @@
 
 Date::Date() : m_Day(Date::DEFAULT_DAY), m_Month(Date::DEFAULT_MONTH), m_Year(Date::DEFAULT_YEAR) {}
 
-Date::Date(int8_t day, int8_t month, int year)
+Date::Date(int day, int month, int year)
 {
     if(Date::IsValid(day, month, year))
     {
@@ -36,12 +36,12 @@ bool Date::IsYearLeap(int year)
     return (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0));
 }
 
-Date Date::Now()
+Date Date::CurrentDate()
 {
     std::time_t seconds = std::time(nullptr);
     std::tm* calendarTime = std::localtime(&seconds);
 
-    return Date{(int8_t)calendarTime->tm_mday, (int8_t)(calendarTime->tm_mon + 1), calendarTime->tm_year + 1900};
+    return Date{calendarTime->tm_mday, calendarTime->tm_mon + 1, calendarTime->tm_year + 1900};
 }
 
 std::string Date::ToString() const
