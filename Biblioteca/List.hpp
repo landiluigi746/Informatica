@@ -97,6 +97,37 @@ public:
         --m_Size;
     }
 
+    template<typename CmpFunc>
+    bool Erase(const CmpFunc& cmpFunc, const T& value)
+    {
+        if(m_Size == 0)
+            return false;
+
+        if(cmpFunc(m_Head->Value, value))
+        {
+            PopFront();
+            return true;
+        }
+
+        NodeType* curr = m_Head;
+
+        while(curr->Next != nullptr)
+        {
+            if(cmpFunc(curr->Next->Value, value))
+            {
+                NodeType* temp = curr->Next;
+                curr->Next = temp->Next;
+                delete temp;
+                --m_Size;
+                return true;
+            }
+
+            curr = curr->Next;
+        }
+
+        return false;
+    }
+
     template<typename Func>
     void ForEach(const Func& func)
     {
