@@ -152,13 +152,14 @@ namespace Biblioteca
                       << "2. Order books\n"
                       << "3. Show only available books\n"
                       << "4. Show only borrowed books\n"
-                      << "5. Show all books\n";
+                      << "5. Show all books\n"
+                      << "6. Remove a book\n";
 
             if(m_CurrentUser)
             {
-                std::cout << "6. Borrow a book\n"
-                          << "7. See borrowed books\n"
-                          << "8. Return a book\n";
+                std::cout << "7. Borrow a book\n"
+                          << "8. See borrowed books\n"
+                          << "9. Return a book\n";
             }
 
             std::cout << "0. Go back to menu\n\n";
@@ -190,6 +191,9 @@ namespace Biblioteca
                     filterFunc = [](const Book&){ return true; };
                     break;
                 case 6:
+                    RemoveBook();
+                    break;
+                case 7:
                     if(m_CurrentUser)
                         BorrowBook();
                     else
@@ -199,7 +203,7 @@ namespace Biblioteca
                         Utils::Pause();
                     }
                     break;
-                case 7:
+                case 8:
                     if(m_CurrentUser)
                     {
                         filterFunc = [this](const Book& book) {
@@ -213,7 +217,7 @@ namespace Biblioteca
                         Utils::Pause();
                     }
                     break;
-                case 8:
+                case 9:
                     if(m_CurrentUser)
                         ReturnBook();
                     else
@@ -301,6 +305,30 @@ namespace Biblioteca
         std::cout << "Book " << selectedBook->Title
                   << " by " << selectedBook->Author
                   << " returned successfully\n";
+        Utils::Pause();
+    }
+
+    void App::RemoveBook()
+    {
+        Book bookToRemove;
+
+        do {
+            std::cout << "Enter the ID of the book to remove: ";
+            std::cin >> bookToRemove.ID;
+        } while(bookToRemove.ID <= 0);
+
+        bool bookRemoved = m_Books.Erase([](const Book& a, const Book& b) {
+            return a.ID == b.ID;
+        }, bookToRemove);
+
+        if(!bookRemoved)
+        {
+            std::cout << "Requested book was not found\n";
+            Utils::Pause();
+            return;
+        }
+
+        std::cout << "Book removed successfully\n";
         Utils::Pause();
     }
 
