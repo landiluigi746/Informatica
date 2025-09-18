@@ -39,4 +39,9 @@ namespace Utils
 
         return a.find(b) != std::string::npos;
     }
+
+    std::string HashString(const std::string& s)
+    {
+        return std::to_string(std::hash<std::string>{}(s));
+    }
 }

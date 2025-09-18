@@ -430,6 +430,8 @@ namespace Biblioteca
             std::getline(std::cin, newUser.Password);
         } while(!newUser.ValidatePassword());
 
+        newUser.Password = Utils::HashString(newUser.Password);
+
         newUser.ID = m_Users.Size() + 1;
         m_Users.PushFront(std::move(newUser));
         m_CurrentUser = &m_Users.Front();
@@ -455,6 +457,8 @@ namespace Biblioteca
             std::cout << "Enter password: ";
             std::getline(std::cin, user.Password);
         } while(user.Password.empty());
+
+        user.Password = Utils::HashString(user.Password);
 
         User* savedUser = m_Users.Search([](const User& a, const User& b) {
             return (a.Username == b.Username && a.Password == b.Password);
