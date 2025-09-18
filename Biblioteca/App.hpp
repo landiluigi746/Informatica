@@ -16,6 +16,7 @@ namespace Biblioteca
         void BorrowBook();
         void ReturnBook();
         void RemoveBook();
+        void ListExpiredLoans();
 
         void RegisterUser();
         void LoginUser();

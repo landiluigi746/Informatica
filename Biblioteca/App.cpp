@@ -60,8 +60,11 @@ namespace Biblioteca
                     (!m_CurrentUser) ? RegisterUser() : LogoutUser();
                     break;
                 case 4:
-                    if(!m_CurrentUser)
+                    if (!m_CurrentUser)
+                    {
                         LoginUser();
+                        ListExpiredLoans();
+                    }
                     else
                     {
                         std::cout << "Invalid choice!\n";
@@ -332,6 +335,49 @@ namespace Biblioteca
                   << " by " << selectedBook->Author
                   << " returned successfully\n";
         Utils::Pause();
+    }
+
+    void App::ListExpiredLoans()
+    {
+        size_t count = 0;
+
+        Utils::ClearScreen();
+        std::cout << "-------------------------------\n"
+                  << "|    Expired loans notice     |\n"
+                  << "-------------------------------\n\n";
+
+        m_Books.ForEach([&count, this](Book& book) {
+            if(book.BorrowerID == m_CurrentUser->ID && book.DueDate < Date::CurrentDate())
+            {
+                std::cout << "The book " << book.Title
+                          << " by " << book.Author
+                          << " that you loaned on " << book.LoanDate.ToString()
+                          << " was due to return on " << book.DueDate.ToString() << "\n\n";
+
+                char choice;
+
+                do {
+                    std::cout << "Do you want to return it (y -> yes, n -> no)? ";
+                    std::cin >> choice;
+                    Utils::ClearInputBuffer();
+                    choice = tolower(choice);
+                } while(choice != 'y' && choice != 'n');
+
+                if(choice == 'y')
+                {
+                    book.BorrowerID = -1;
+                    std::cout << "Book returned successfully\n\n";
+                }
+                else
+                    std::cout << "Make sure to return it as soon as possible\n\n";
+
+                ++count;
+            }
+        });
+
+
+        if (count > 0)
+            Utils::Pause();
     }
 
     void App::RemoveBook()
