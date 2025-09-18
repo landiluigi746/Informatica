@@ -17,7 +17,11 @@ namespace Utils
     void Pause()
     {
         std::cout << "Press any button to continue..." << std::flush;
-        std::system("read -n 1 > /dev/null || pause > nul");
+#if defined(_WIN32)
+        std::system("pause > nul");
+#elif defined(__linux__) || defined(__APPLE__)
+		std::system("read -n 1 > /dev/null");
+#endif
     }
 
     void ClearInputBuffer()
