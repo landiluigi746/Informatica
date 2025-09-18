@@ -42,10 +42,8 @@ namespace Biblioteca
             std::cout << "Users registered: " << m_Users.Size() << "\n";
             std::cout << "Books registered: " << m_Books.Size() << "\n\n";
 
-            std::cout << "Enter an option: ";
-            std::cin >> choice;
+            Utils::ReadInt(choice, "Enter an option: ");
 
-            Utils::ClearInputBuffer();
             Utils::ClearScreen();
 
             switch(choice)
@@ -66,17 +64,13 @@ namespace Biblioteca
                         ListExpiredLoans();
                     }
                     else
-                    {
-                        std::cout << "Invalid choice!\n";
-                        Utils::Pause();
-                    }
+                        Utils::InvalidChoice();
                     break;
                 case 0:
                     std::cout << "Goodbye!\n";
                     break;
                 default:
-                    std::cout << "Invalid choice!\n";
-                    Utils::Pause();
+                    Utils::InvalidChoice();
                     break;
             }
         } while(choice != 0);
@@ -111,9 +105,7 @@ namespace Biblioteca
         } while(alreadyPresent);
 
         do {
-            std::cout << "Enter the publication year of the book: ";
-            std::cin >> newBook.PublicationYear;
-            Utils::ClearInputBuffer();
+            Utils::ReadInt(newBook.PublicationYear, "Enter the publication year of the book: ");
         } while(!newBook.ValidatePublicationYear());
 
         newBook.ID = m_Books.Size() + 1;
@@ -167,9 +159,7 @@ namespace Biblioteca
 
             std::cout << "0. Go back to menu\n\n";
 
-            std::cout << "Enter an option: ";
-            std::cin >> choice;
-            Utils::ClearInputBuffer();
+            Utils::ReadInt(choice, "Enter an option: ");
 
             switch(choice)
             {
@@ -200,11 +190,7 @@ namespace Biblioteca
                     if(m_CurrentUser)
                         BorrowBook();
                     else
-                    {
-                        Utils::ClearScreen();
-                        std::cout << "Invalid choice!\n";
-                        Utils::Pause();
-                    }
+                        Utils::InvalidChoice();
                     break;
                 case 8:
                     if(m_CurrentUser)
@@ -214,28 +200,18 @@ namespace Biblioteca
                         };
                     }
                     else
-                    {
-                        Utils::ClearScreen();
-                        std::cout << "Invalid choice!\n";
-                        Utils::Pause();
-                    }
+                        Utils::InvalidChoice();
                     break;
                 case 9:
                     if(m_CurrentUser)
                         ReturnBook();
                     else
-                    {
-                        Utils::ClearScreen();
-                        std::cout << "Invalid choice!\n";
-                        Utils::Pause();
-                    }
+                        Utils::InvalidChoice();
                     break;
                 case 0:
                     break;
                 default:
-                    Utils::ClearScreen();
-                    std::cout << "Invalid choice!\n";
-                    Utils::Pause();
+                    Utils::InvalidChoice();
                     break;
             }
         } while(choice != 0);
@@ -246,8 +222,7 @@ namespace Biblioteca
         Book bookToBorrow;
 
         do {
-            std::cout << "Enter the ID of the book to borrow: ";
-            std::cin >> bookToBorrow.ID;
+            Utils::ReadInt(bookToBorrow.ID, "Enter the ID of the book to borrow: ");
         } while(bookToBorrow.ID <= 0);
 
         Book* selectedBook = m_Books.Search([](const Book& a, const Book& b) {
@@ -273,17 +248,9 @@ namespace Biblioteca
         std::cout << "Enter the due date to return the book:\n";
 
         do {
-            std::cout << "Day: ";
-            std::cin >> day;
-            Utils::ClearInputBuffer();
-
-            std::cout << "Month: ";
-            std::cin >> month;
-            Utils::ClearInputBuffer();
-
-            std::cout << "Year: ";
-            std::cin >> year;
-            Utils::ClearInputBuffer();
+            Utils::ReadInt(day, "Day: ");
+            Utils::ReadInt(month, "Month: ");
+            Utils::ReadInt(year, "Year: ");
 
             Date tempDate{day, month, year};
             validDate = Date::IsValid(day, month, year) && tempDate > Date::CurrentDate();
@@ -307,8 +274,7 @@ namespace Biblioteca
         Book bookToReturn;
 
         do {
-            std::cout << "Enter the ID of the book to return: ";
-            std::cin >> bookToReturn.ID;
+            Utils::ReadInt(bookToReturn.ID, "Enter the ID of the book to return: ");
         } while(bookToReturn.ID <= 0);
 
         Book* selectedBook = m_Books.Search([](const Book& a, const Book& b) {
@@ -385,8 +351,7 @@ namespace Biblioteca
         Book bookToRemove;
 
         do {
-            std::cout << "Enter the ID of the book to remove: ";
-            std::cin >> bookToRemove.ID;
+            Utils::ReadInt(bookToRemove.ID, "Enter the ID of the book to remove: ");
         } while(bookToRemove.ID <= 0);
 
         bool bookRemoved = m_Books.Erase([](const Book& a, const Book& b) {
@@ -538,9 +503,7 @@ namespace Biblioteca
                       << "2. Author\n"
                       << "3. Publication Year\n\n";
 
-            std::cout << "Enter a choice: ";
-            std::cin >> choice;
-            Utils::ClearInputBuffer();
+            Utils::ReadInt(choice, "Enter a choice: ");
             Utils::ClearScreen();
 
             switch(choice)
@@ -560,8 +523,7 @@ namespace Biblioteca
                         return Utils::StringContainsInsensitive(book.Author, searchQuery);
                     };
                 case 3:
-                    std::cout << "Enter the year you want to search books in: ";
-                    std::cin >> yearQuery;
+                    Utils::ReadInt(yearQuery, "Enter the year you want to search books in: ");
                     Utils::ClearInputBuffer();
 
                     return [yearQuery](const Book& book) {
@@ -587,9 +549,7 @@ namespace Biblioteca
                       << "2. Author\n"
                       << "3. Publication Year\n\n";
 
-            std::cout << "Enter a choice: ";
-            std::cin >> choice;
-            Utils::ClearInputBuffer();
+            Utils::ReadInt(choice, "Enter a choice: ");
             Utils::ClearScreen();
 
             switch(choice)

@@ -29,6 +29,29 @@ namespace Utils
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
+    void ReadInt(int& x, const char* prompt)
+    {
+        while(true)
+        {
+            std::cout << prompt;
+
+            if(std::cin >> x)
+                break;
+
+            std::cin.clear();
+            ClearInputBuffer();
+        }
+
+        ClearInputBuffer();
+    }
+
+    void InvalidChoice()
+    {
+        Utils::ClearScreen();
+        std::cout << "Invalid choice\n";
+        Utils::Pause();
+    }
+
     bool StringContainsInsensitive(std::string a, std::string b)
     {
         for(char& c: a)
