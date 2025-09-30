@@ -1,0 +1,4 @@
+#lista_pizze {
+    display: flex;
+    flex-direction: flex-row;
+}
