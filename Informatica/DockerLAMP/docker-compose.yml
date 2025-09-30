@@ -1,0 +1,43 @@
+services:
+  web:
+    image: php:8.2-apache
+    container_name: lamp_web
+    ports:
+      - "80:80"
+    volumes:
+      - ./www:/var/www/html
+      - ./php/php.ini:/usr/local/etc/php/conf.d/custom.ini
+    depends_on:
+      - mysql
+    command: >
+      bash -c "
+        docker-php-ext-install mysqli pdo pdo_mysql &&
+        chown -R www-data:www-data /var/www/html &&
+        chmod -R 755 /var/www/html &&
+        apache2-foreground
+      "
+
+  mysql:
+    image: mysql:8.0
+    container_name: lamp_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD-root}
+      MYSQL_DATABASE: ${MYSQL_DATABASE-database}
+      MYSQL_USER: ${MYSQL_USER-user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD-password}
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: lamp_phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD-root}
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
