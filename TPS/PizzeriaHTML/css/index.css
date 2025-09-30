@@ -1,3 +1,8 @@
+#about_us {
+    max-width: fit-content;
+    margin: 0 auto 5.25rem;
+}
+
 #pizzas_list {
     display: flex;
     flex-direction: flex-row;
