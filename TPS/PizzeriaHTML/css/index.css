@@ -1,4 +1,14 @@
-#lista_pizze {
+#pizzas_list {
     display: flex;
     flex-direction: flex-row;
+    gap: 2.75rem;
+}
+
+.pizza_card {
+    text-align: center;
+    background-color: #09090b;
+}
+
+.pizza_img {
+    border-radius: 0.75rem;
 }

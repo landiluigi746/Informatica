@@ -1,3 +1,15 @@
 * {
     font-family: system-ui, "Segoe UI";
+    color: #f4f4f5;
+}
+
+body {
+    background-color: #0a0a0a;
+    max-width: fit-content;
+    margin: 0 auto;
+}
+
+header {
+    margin: 6rem 0;
+    text-align: center;
 }
