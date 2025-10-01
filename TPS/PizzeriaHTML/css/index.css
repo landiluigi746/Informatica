@@ -27,11 +27,10 @@ header {
 }
 
 #pizzas_list_wrapper {
-    width: 67.5svw;
+    width: 62.5svw;
     position: relative;
     display: flex;
     flex-direction: row;
-    gap: 2.75rem;
     overflow-x: hidden;
 }
 
@@ -41,7 +40,7 @@ header {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 2.25rem;
+    width: 2.75rem;
     pointer-events: none;
     z-index: 2;
 }
@@ -68,12 +67,13 @@ header {
 .pizzas_list {
     display: flex;
     flex-direction: row;
-    gap: 2.75rem;
+    justify-content: start;
     animation: infinite-scroll 20s linear infinite;
 }
 
 .pizza_card {
     text-align: center;
+    margin-inline: 2.25rem;
 }
 
 .pizza_img {
