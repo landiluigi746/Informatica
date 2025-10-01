@@ -16,10 +16,12 @@ body {
 
 #title {
     font-size: 3.5rem;
+    text-align: center;
 }
 
 #subtitle {
     font-size: 2.25rem;
+    text-align: center;
 }
 
 .section_title {
@@ -75,8 +77,35 @@ footer {
     gap: 0.75rem;
     text-align: center;
     margin: 0 auto;
+    padding: 0;
 }
 
 #contacts > li {
     font-size: 1.25rem;
+}
+
+@media screen and (max-width: 680px) {
+    #title {
+        font-size: 2.5rem;
+    }
+
+    #subtitle {
+        font-size: 1.35rem;
+    }
+
+    .section_title {
+        font-size: 2rem;
+    }
+
+    footer {
+        margin-top: 4rem;
+    }
+
+    #contacts {
+        flex-direction: column;
+    }
+
+    #contacts > li {
+        font-size: 1rem;
+    }
 }

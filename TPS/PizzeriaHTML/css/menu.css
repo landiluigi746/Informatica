@@ -9,3 +9,16 @@ header {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     padding-inline: 1rem;
 }
+
+@media screen and (max-width: 680px) {
+    #menu_list {
+        max-width: 90svw;
+        display: flex;
+        flex-direction: column;
+        padding-inline: 1.5rem;
+    }
+
+    .menu_text {
+        font-size: 0.95rem;
+    }
+}

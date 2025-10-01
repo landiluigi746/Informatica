@@ -85,3 +85,27 @@ header {
 .pizza_img {
     border-radius: 0.75rem;
 }
+
+@media screen and (max-width: 680px) {
+    #about_us {
+        padding: 4rem 0;
+    }
+
+    #about_us > p {
+        max-width: 87.5svw;
+        font-size: 1rem;
+        margin: 0 auto;
+    }
+
+    #pizzas_list_wrapper {
+        width: 100svw;
+    }
+
+    .pizza_card {
+        margin-inline: 0;
+    }
+
+    .pizza_img {
+        transform: scale(0.8);
+    }
+}
