@@ -28,9 +28,20 @@ body {
     margin-bottom: 4rem;
 }
 
-nav {
+#topbar {
     position: fixed;
-    top: 1.25rem;
+    top: 0;
+    left: 0;
+    width: 100svw;
+    height: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+}
+
+nav {
+    position: relative;
     left: 1.25rem;
     display: flex;
     flex-direction: row;
@@ -44,4 +55,10 @@ a {
 a:hover {
     cursor: pointer;
     text-decoration: underline;
+}
+
+#developer_img {
+    position: relative;
+    right: 1.25rem;
+    border-radius: 100%;
 }
