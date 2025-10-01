@@ -1,17 +1,73 @@
+#bg_img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100svw;
+    height: 100svh;
+    opacity: 0.15;
+}
+
+header {
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #about_us {
     max-width: fit-content;
     margin: 0 auto 5.25rem;
 }
 
-#pizzas_list {
+#pizzas_list_wrapper {
+    width: 67.5svw;
+    position: relative;
     display: flex;
-    flex-direction: flex-row;
+    flex-direction: row;
     gap: 2.75rem;
+    overflow-x: hidden;
+}
+
+#pizzas_list_wrapper::before,
+#pizzas_list_wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2.25rem;
+    pointer-events: none;
+    z-index: 2;
+}
+
+#pizzas_list_wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, #0a0a0a, transparent);
+}
+
+#pizzas_list_wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, #0a0a0a, transparent);
+}
+
+@keyframes infinite-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.pizzas_list {
+    display: flex;
+    flex-direction: row;
+    gap: 2.75rem;
+    animation: infinite-scroll 20s linear infinite;
 }
 
 .pizza_card {
     text-align: center;
-    background-color: #09090b;
 }
 
 .pizza_img {
