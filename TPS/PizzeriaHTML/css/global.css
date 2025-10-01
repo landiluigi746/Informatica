@@ -15,17 +15,17 @@ body {
 }
 
 #title {
-    font-size: 3.25rem;
+    font-size: 3.5rem;
 }
 
 #subtitle {
-    font-size: 2.125rem;
+    font-size: 2.25rem;
 }
 
 .section_title {
-    font-size: 2rem;
+    font-size: 2.25rem;
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3.25rem;
 }
 
 #topbar {
@@ -61,4 +61,22 @@ a:hover {
     position: relative;
     right: 1.25rem;
     border-radius: 100%;
+}
+
+footer {
+    margin: 8rem 0 4rem;
+}
+
+#contacts {
+    list-style: none;
+    max-width: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#contacts > li {
+    font-size: 1.25rem;
 }

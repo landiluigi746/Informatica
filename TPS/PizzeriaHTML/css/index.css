@@ -23,11 +23,17 @@ header {
 
 #about_us {
     max-width: fit-content;
-    margin: 0 auto 5.25rem;
+    padding: 8rem 0 10rem;
+    margin: 0 auto;
+}
+
+#about_us > p {
+    font-size: 1.75rem;
 }
 
 #pizzas_list_wrapper {
     width: 62.5svw;
+    margin: 0 auto;
     position: relative;
     display: flex;
     flex-direction: row;
