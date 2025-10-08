@@ -1,6 +1,8 @@
 services:
   web:
-    image: php:8.2-apache
+    build:
+      dockerfile: ./docker/web.Dockerfile
+      context: .
     container_name: lamp_web
     ports:
       - "80:80"
@@ -9,13 +11,6 @@ services:
       - ./php/php.ini:/usr/local/etc/php/conf.d/custom.ini
     depends_on:
       - mysql
-    command: >
-      bash -c "
-        docker-php-ext-install mysqli pdo pdo_mysql &&
-        chown -R www-data:www-data /var/www/html &&
-        chmod -R 755 /var/www/html &&
-        apache2-foreground
-      "
 
   mysql:
     image: mysql:8.0
