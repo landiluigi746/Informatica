@@ -1,8 +1,8 @@
 services:
   web:
     build:
-      dockerfile: ./docker/web.Dockerfile
-      context: .
+      context: ./docker/web
+      dockerfile: Dockerfile
     container_name: lamp_web
     ports:
       - "80:80"
