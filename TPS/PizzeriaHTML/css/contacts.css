@@ -1,4 +1,57 @@
 header {
     text-align: center;
-    margin: 8rem 0 4rem;
+    margin: 12rem 0 6rem;
+}
+
+#contacts {
+    list-style: none;
+    max-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+    margin: 0 auto;
+    padding: 0;
+}
+
+#contacts > li {
+    font-size: 1.25rem;
+}
+
+#info_wrapper {
+    margin: 4rem 0;
+}
+
+#info {
+    max-width: fit-content;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    gap: 4rem;
+}
+
+.info_card {
+    width: 16rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    align-items: center;
+}
+
+.info_card > h4 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.info_card > p,
+.info_card > a {
+    text-align: center;
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+@media screen and (max-width: 680px) {
+    #info {
+        flex-direction: column;
+    }
 }
