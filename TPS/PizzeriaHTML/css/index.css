@@ -33,7 +33,7 @@ header {
 
 #pizzas_list_wrapper {
     width: 62.5svw;
-    margin: 0 auto;
+    margin: 0 auto 2rem;
     position: relative;
     display: flex;
     flex-direction: row;
@@ -84,6 +84,19 @@ header {
 
 .pizza_img {
     border-radius: 0.75rem;
+}
+
+#menu_link_wrapper {
+    max-width: fit-content;
+    margin: 0 auto;
+}
+
+#menu_link {
+    font-weight: bold;
+    padding: 0.85rem 1.15rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    background-color: seagreen;
 }
 
 @media screen and (max-width: 680px) {
