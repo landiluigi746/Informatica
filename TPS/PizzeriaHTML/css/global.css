@@ -71,8 +71,17 @@ footer {
 }
 
 @media screen and (max-width: 680px) {
+    #topbar {
+        justify-content: center;
+    }
+
     nav {
-        gap: 1rem;
+        left: 0;
+        gap: 0.85rem;
+    }
+
+    #developer_img {
+        display: none;
     }
 
     #title {
