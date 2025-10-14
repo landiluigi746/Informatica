@@ -1,4 +1,4 @@
-# Informatica
+# Informatica - TPS
 
 Questo repository contiene il codice sorgente per tutti gli esercizi
 svolti in Informatica e TPS nell'anno scolastico 2025/2026.
