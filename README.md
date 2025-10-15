@@ -13,12 +13,12 @@ Nel caso di progetti C/C++ con più file è presente un Makefile per compilare.
 
 ### [Informatica](/Informatica_TPS/Informatica)
 
-- [Biblioteca](/Informatica_TPS/Informatica/Biblioteca)
-- [DockerLAMP](/Informatica_TPS/Informatica/DockerLAMP)
+- [Biblioteca](/Informatica_TPS/Informatica/Biblioteca) - [See source code](https://github.com/landiluigi746/Informatica_TPS/tree/master/Informatica/Biblioteca)
+- [DockerLAMP](/Informatica_TPS/Informatica/DockerLAMP) - [See source code](https://github.com/landiluigi746/Informatica_TPS/tree/master/Informatica/DockerLAMP)
 
 ### [TPS](/Informatica_TPS/TPS)
 
-- [PizzeriaHTML](/Informatica_TPS/TPS/PizzeriaHTML)
+- [PizzeriaHTML](/Informatica_TPS/TPS/PizzeriaHTML) - [See source code](https://github.com/landiluigi746/Informatica_TPS/tree/master/TPS/PizzeriaHTML)
 
 ## Licenza
 

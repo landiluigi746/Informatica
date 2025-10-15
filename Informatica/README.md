@@ -6,7 +6,7 @@ Questa sottocartella contiene il codice sorgente degli esercizi svolti di Inform
 
 ## Esercizi svolti
 
-- [Biblioteca](/Informatica_TPS/Informatica/Biblioteca)
-- [DockerLAMP](/Informatica_TPS/Informatica/DockerLAMP)
+- [Biblioteca](/Informatica_TPS/Informatica/Biblioteca) - [See source code](https://github.com/landiluigi746/Informatica_TPS/tree/master/Informatica/Biblioteca)
+- [DockerLAMP](/Informatica_TPS/Informatica/DockerLAMP) - [See source code](https://github.com/landiluigi746/Informatica_TPS/tree/master/Informatica/DockerLAMP)
 
 **Copyright © 2025 Luigi Landi**
