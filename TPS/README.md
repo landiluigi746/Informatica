@@ -2,10 +2,10 @@
 
 Questa sottocartella contiene gli esercizi svolti in TPS.
 
-**[Go back to menu](/)**
+**[Go back to menu](/Informatica_TPS)**
 
 ## Esercizi svolti
 
-- [PizzeriaHTML](/TPS/PizzeriaHTML)
+- [PizzeriaHTML](/Informatica_TPS/TPS/PizzeriaHTML)
 
 **Copyright © 2025 Luigi Landi**

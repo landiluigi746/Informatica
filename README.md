@@ -11,14 +11,14 @@ Nel caso di progetti C/C++ con più file è presente un Makefile per compilare.
 
 ## Esercizi svolti
 
-### [Informatica](/Informatica)
+### [Informatica](/Informatica_TPS/Informatica)
 
-- [Biblioteca](/Informatica/Biblioteca)
-- [DockerLAMP](/Informatica/DockerLAMP)
+- [Biblioteca](/Informatica_TPS/Informatica/Biblioteca)
+- [DockerLAMP](/Informatica_TPS/Informatica/DockerLAMP)
 
-### [TPS](/TPS)
+### [TPS](/Informatica_TPS/TPS)
 
-- [PizzeriaHTML](/TPS/PizzeriaHTML)
+- [PizzeriaHTML](/Informatica_TPS/TPS/PizzeriaHTML)
 
 ## Licenza
 
